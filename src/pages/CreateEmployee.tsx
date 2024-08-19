@@ -1,7 +1,6 @@
-// pages/CreateEmployee.tsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addEmployee } from '../features/employeesSlice';
+import { addEmployee } from '../features/emplyeesSlice';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
