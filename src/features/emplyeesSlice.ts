@@ -1,39 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import employees from '../mockData/employees.json';
+import { Employee } from '../models/Employee';
 
-// Définition du type pour un employé
-interface Employee {
-      id: number;
-      name: string;
-      position: string;
-}
-
-// Définition du type pour l'état initial
-interface EmployeesState {
-      list: Employee[];
-}
-
-const initialState: EmployeesState = {
-      list: [], // Initialisation de la liste vide
-};
+// interface Employee {
+//   firstName: string;
+//   lastName: string;
+//   // Ajoutez d'autres propriétés spécifiques à vos employés ici
+// }
 
 const employeesSlice = createSlice({
-      name: 'employees',
-      initialState,
-      reducers: {
-            addEmployee(state, action: PayloadAction<Employee>) {
-                  // Vérifier si l'employé avec le même ID existe déjà
-                  const existingEmployee = state.list.find(
-                        (emp) => emp.id === action.payload.id
-                  );
-                  if (!existingEmployee) {
-                        state.list.push(action.payload);
-                  } else {
-                        console.warn(
-                              `Employee with id ${action.payload.id} already exists.`
-                        );
-                  }
-            },
-      },
+  name: 'employees',
+  initialState: {
+    list: employees || [],
+  },
+  reducers: {
+    addEmployee(state, action: PayloadAction<Employee>) {
+      state.list.push(action.payload);
+    },
+  },
 });
 
 export const { addEmployee } = employeesSlice.actions;

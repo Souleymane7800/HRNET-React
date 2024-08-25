@@ -26,7 +26,7 @@ const CreateEmployee = () => {
       const [department, setDepartment] = useState<{
             value: string;
             label: string;
-      } | null>({ value: 'Sales', label: 'Sales' });
+      } | null>(null);
       const [isModalOpen, setIsModalOpen] = useState(false);
 
       const dispatch = useDispatch();
@@ -114,10 +114,10 @@ const CreateEmployee = () => {
 
       return (
             <FormContainer>
-                  <h2>Create Employee</h2>
-                  <form onSubmit={handleSubmit}>
+                  <h2>Create a new Employee</h2>
+                  <Form onSubmit={handleSubmit}>
                         <label>First Name:</label>
-                        <input
+                        <Input
                               value={firstName}
                               onChange={(e) => setFirstName(e.target.value)}
                               type='text'
@@ -125,37 +125,40 @@ const CreateEmployee = () => {
                         />
 
                         <label>Last Name:</label>
-                        <input
+                        <Input
                               value={lastName}
                               onChange={(e) => setLastName(e.target.value)}
                               type='text'
                               required
                         />
 
-                        <label>Date of Birth:</label>
-                        <DatePicker
+                        <label htmlFor='dateOfBirth'>Date of Birth:</label>
+
+                        <StyledDatePicker
                               id='dateOfBirth'
+                              placeholderText='dd/mm/yyyy'
                               selected={dateOfBirth}
                               onChange={(date) =>
                                     handleDateChange(date, 'dateOfBirth')
                               }
-                              dateFormat='MM/dd/yyyy'
+                              dateFormat='dd/mm/yyyy'
                         />
 
                         <label htmlFor='startDate'>Start Date:</label>
-                        <DatePicker
+                        <StyledDatePicker
                               id='startDate'
+                              placeholderText='dd/mm/yyyy'
                               selected={startDate}
                               onChange={(date) =>
                                     handleDateChange(date, 'startDate')
                               }
-                              dateFormat='MM/dd/yyyy'
+                              dateFormat='dd/mm/yyyy'
                         />
 
-                        <fieldset>
+                        <StyledFieldset>
                               <legend>Address</legend>
                               <label>Street:</label>
-                              <input
+                              <Input
                                     value={street}
                                     onChange={(e) => setStreet(e.target.value)}
                                     type='text'
@@ -163,7 +166,7 @@ const CreateEmployee = () => {
                               />
 
                               <label>City:</label>
-                              <input
+                              <Input
                                     value={city}
                                     onChange={(e) => setCity(e.target.value)}
                                     type='text'
@@ -171,30 +174,32 @@ const CreateEmployee = () => {
                               />
 
                               <label>State:</label>
-                              <Select
+                              <StyledSelect
+                                    placeholder='Select state'
                                     value={state}
                                     onChange={handleStateChange}
                                     options={stateOptions}
                               />
 
-                              <label>Zip Code:</label>
-                              <input
+                              <StyledLabel>Zip Code:</StyledLabel>
+                              <Input
                                     value={zipCode}
                                     onChange={(e) => setZipCode(e.target.value)}
                                     type='text'
                                     required
                               />
-                        </fieldset>
+                        </StyledFieldset>
 
-                        <label>Department:</label>
-                        <Select
+                        <StyledLabel>Department:</StyledLabel>
+                        <StyledSelect
+                              placeholder='Select department'
                               value={department}
                               onChange={handleDepartmentChange}
                               options={departmentOptions}
                         />
 
-                        <button type='submit'>Save</button>
-                  </form>
+                        <StyledButton type='submit'>Save</StyledButton>
+                  </Form>
 
                   {isModalOpen && (
                         <Modal
@@ -222,9 +227,127 @@ export default CreateEmployee;
 const FormContainer = styled.div`
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      align-items: center;
+      gap: 0.5rem;
       padding: 2rem;
       background-color: #f9f9f9;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      border: 3px solid #ccc;
+      border-radius: 5px;
+      margin: 40px auto 80px;
+      max-width: 800px;
+      //padding: 0 20px 20px;
+
+      @media (max-width: 768px) {
+            margin: 20px 10px; // Ajuste la marge pour les écrans mobiles
+            width: calc(
+                  100% - 20px
+            ); // Assure que la largeur totale (avec les marges) ne dépasse pas 100%
+            max-width: none; // Supprime la max-width pour les petits écrans
+      }
+`;
+
+const Form = styled.form`
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 0.5rem;
+      padding-bottom: 3rem;
+`;
+
+const Input = styled.input`
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-bottom: 1rem;
+
+      &:focus {
+            outline: none;
+            border: none;
+            box-shadow: 0 0 10px #29712c;
+      }
+`;
+
+const StyledFieldset = styled.fieldset`
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;
+      background-color: #f0f3e5;
+`;
+
+const StyledLabel = styled.label`
+      padding-top: 1rem;
+      display: block;
+`;
+
+const StyledButton = styled.button`
+      background-color: #29712c;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 20px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+            background-color: #45a049;
+      }
+
+      &:active {
+            background-color: #3e8e41;
+      }
+
+      @media (max-width: 768px) {
+            width: 100%;
+            padding: 12px;
+      }
+`;
+
+const StyledDatePicker = styled(DatePicker)`
+      padding: 0.75rem;
+      border-radius: 4px;
+
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 1rem;
+
+      &:focus {
+            outline: none;
+            border: none;
+            box-shadow: 0 0 10px #29712c;
+      }
+` as typeof DatePicker;
+
+const StyledSelect = styled(Select).attrs(() => ({}))`
+      .react-select__control {
+            border-color: #ccc; /* Couleur de bordure par défaut */
+            &:hover {
+                  border-color: #888; /* Couleur de bordure au survol */
+            }
+      }
+
+      .react-select__control--is-focused {
+            border-color: #29712c; /* Couleur de bordure lorsque le composant est en focus */
+            box-shadow: 0 0 5px #29712c; /* Ombre lorsque le composant est en focus */
+      }
+
+      .react-select__placeholder {
+            color: #888; /* Couleur du placeholder */
+      }
+
+      .react-select__menu {
+            border-color: #29712c; /* Bordure du menu déroulant */
+      }
+      border: 1px solid black;
+      &:focus {
+            outline: none;
+            border: none;
+            box-shadow: 0 0 10px #29712c;
+      }
 `;
