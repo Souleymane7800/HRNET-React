@@ -5,12 +5,17 @@ import {
       usePagination,
       useGlobalFilter,
       Column,
-      UsePaginationInstanceProps, UsePaginationState,
       TableState,
       TableInstance,
       Row,
 } from 'react-table';
 import styled from 'styled-components';
+
+interface RootState {
+      employees: {
+            list: Employee[];
+      };
+}
 
 interface Employee {
       firstName: string;
@@ -25,7 +30,10 @@ interface Employee {
 }
 
 interface TableStateWithGlobalFilter<D extends object> extends TableState<D> {
-      globalFilter: unknown;
+      globalFilter: string; // Typé comme string, et non unknown
+      page: number;
+      pageIndex: number;
+      pageSize: number;
 }
 
 // Composant de recherche globale
@@ -42,14 +50,14 @@ const GlobalFilter = ({
                   <input
                         value={filter || ''}
                         onChange={(e) => setFilter(e.target.value)}
-                        placeholder='Enter search term...'
+                        placeholder='Search...'
                   />
             </SearchWrapper>
       );
 };
 
 const EmployeeList = () => {
-      const employees = useSelector((state: unknown) => state.employees.list);
+      const employees = useSelector((state: RootState) => state.employees.list);
 
       const columns: Column<Employee>[] = React.useMemo(
             () => [
@@ -119,6 +127,17 @@ const EmployeeList = () => {
             usePagination
       ) as TableInstance<Employee> & {
             state: TableStateWithGlobalFilter<Employee>;
+            // page: unknown,
+            // canPreviousPage: unknown,
+            // canNextPage: unknown,
+            // pageOptions: unknown,
+            // pageCount: unknown,
+            // gotoPage: unknown,
+            // nextPage: unknown,
+            // previousPage: unknown,
+            // setPageSize: unknown,
+            // // state,
+            // setGlobalFilter: unknown,
       };
 
       const { globalFilter, pageIndex, pageSize } = state;
@@ -276,7 +295,7 @@ const TableWrapper = styled.div`
             }
 
             th {
-                  background-color: #f4f4f4;
+                  background-color: #8fdf93;
             }
       }
 `;
@@ -312,6 +331,7 @@ const SearchWrapper = styled.div`
             margin-left: 0.5rem;
             padding: 0.25rem;
             width: 200px;
+            font-size: 18px;
       }
 `;
 

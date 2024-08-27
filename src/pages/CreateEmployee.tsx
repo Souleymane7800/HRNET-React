@@ -9,7 +9,7 @@ import { Modal } from 'my-modal-souleymane7800';
 // import 'my-modal-souleymane7800/dist/modal/Modal.css'
 import Select, { SingleValue } from 'react-select';
 import { Employee } from '../models/Employee';
-import { states } from '../models/State'; // Import states
+import { states } from '../models/State';
 
 const CreateEmployee = () => {
       const [firstName, setFirstName] = useState('');
@@ -43,11 +43,9 @@ const CreateEmployee = () => {
 
       // Handle department selection change
       const handleDepartmentChange = (
-            selectedOption: SingleValue<{ value: string; label: string }>
+            selectedOption: { value: string; label: string } | null
       ) => {
-            if (selectedOption) {
-                  setDepartment(selectedOption);
-            }
+            setDepartment(selectedOption);
       };
 
       // Handle state selection change
@@ -175,9 +173,17 @@ const CreateEmployee = () => {
 
                               <label>State:</label>
                               <StyledSelect
+                                    classNamePrefix='Select'
                                     placeholder='Select state'
                                     value={state}
-                                    onChange={handleStateChange}
+                                    onChange={(newValue) =>
+                                          handleStateChange(
+                                                newValue as {
+                                                      value: string;
+                                                      label: string;
+                                                }
+                                          )
+                                    }
                                     options={stateOptions}
                               />
 
@@ -192,9 +198,17 @@ const CreateEmployee = () => {
 
                         <StyledLabel>Department:</StyledLabel>
                         <StyledSelect
+                              classNamePrefix='Select'
                               placeholder='Select department'
                               value={department}
-                              onChange={handleDepartmentChange}
+                              onChange={(newValue) =>
+                                    handleDepartmentChange(
+                                          newValue as {
+                                                value: string;
+                                                label: string;
+                                          }
+                                    )
+                              }
                               options={departmentOptions}
                         />
 
@@ -276,6 +290,7 @@ const StyledFieldset = styled.fieldset`
       gap: 0.5rem;
       padding: 1rem;
       background-color: #f0f3e5;
+      border: 3px solid #29712c;
 `;
 
 const StyledLabel = styled.label`
@@ -324,30 +339,39 @@ const StyledDatePicker = styled(DatePicker)`
       }
 ` as typeof DatePicker;
 
-const StyledSelect = styled(Select).attrs(() => ({}))`
-      .react-select__control {
-            border-color: #ccc; /* Couleur de bordure par défaut */
+const StyledSelect = styled(Select)`
+      .Select__control {
+            height: 40px;
+            width: 100%;
+            border: 2px solid black;
+            border-radius: 0;
+            cursor: pointer;
+
             &:hover {
-                  border-color: #888; /* Couleur de bordure au survol */
+                  outline: none;
+                  border: none;
+                  box-shadow: 0 0 10px #29712c;
+            }
+
+            &.Select__control--is-focused {
+                  outline: none;
+                  border: none;
+                  box-shadow: 0 0 10px #29712c;
             }
       }
 
-      .react-select__control--is-focused {
-            border-color: #29712c; /* Couleur de bordure lorsque le composant est en focus */
-            box-shadow: 0 0 5px #29712c; /* Ombre lorsque le composant est en focus */
-      }
+      .Select__menu {
+            color: black;
+            background-color: white;
 
-      .react-select__placeholder {
-            color: #888; /* Couleur du placeholder */
-      }
+            .Select__option:hover {
+                  background-color: green;
+                  color: white;
+            }
 
-      .react-select__menu {
-            border-color: #29712c; /* Bordure du menu déroulant */
-      }
-      border: 1px solid black;
-      &:focus {
-            outline: none;
-            border: none;
-            box-shadow: 0 0 10px #29712c;
+            .Select__option--is-selected {
+                  background-color: #29712c;
+                  color: white;
+            }
       }
 `;

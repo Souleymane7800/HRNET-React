@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
   
   body {
     font-family: Montserrat, sans-serif;
+    font-size: 18px;
     background-color: #f0f0f0;
     color: #333;
   }
