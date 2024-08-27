@@ -263,7 +263,6 @@ const EmployeeList = () => {
                               ))}
                         </select>
                   </PaginationWrapper>
-                  <a href='/'>Home</a>
             </ListContainer>
       );
 };
