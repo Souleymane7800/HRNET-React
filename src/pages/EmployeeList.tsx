@@ -144,7 +144,7 @@ const EmployeeList = () => {
 
       return (
             <ListContainer>
-                  <h2>Employee List</h2>
+                  <Title>Employee List</Title>
                   <GlobalFilter
                         filter={globalFilter || ''}
                         setFilter={setGlobalFilter}
@@ -274,7 +274,12 @@ const ListContainer = styled.div`
       background-color: #fff;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      margin-top: 2rem;
+`;
+
+const Title = styled.h2`
+      justify-content: center;
+      display: flex;
+      padding-bottom: 1rem;
 `;
 
 const TableWrapper = styled.div`
@@ -304,7 +309,7 @@ const PaginationWrapper = styled.div`
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      margin-bottom: 1rem;
+      margin: 2rem;
 
       button {
             padding: 0.25rem 0.5rem;
