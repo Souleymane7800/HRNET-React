@@ -8,6 +8,9 @@ import {
       TableState,
       TableInstance,
       Row,
+      UsePaginationState,
+      UsePaginationInstanceProps,
+      UseGlobalFiltersInstanceProps,
 } from 'react-table';
 import styled from 'styled-components';
 
@@ -29,11 +32,19 @@ interface Employee {
       zipCode: string;
 }
 
-interface TableStateWithGlobalFilter<D extends object> extends TableState<D> {
-      globalFilter: string; // Typé comme string, et non unknown
-      page: number;
+interface TableStateWithGlobalFilter<D extends object = object> extends TableState<D> {
+      globalFilter: string;
       pageIndex: number;
       pageSize: number;
+    }
+
+interface TableStateWithPagination<D extends object = object> extends TableState<D>, UsePaginationState<D> {}
+
+interface CustomTableInstance<D extends object = object> extends 
+  TableInstance<D>, 
+  UsePaginationInstanceProps<D>,
+  UseGlobalFiltersInstanceProps<D> {
+  state: TableStateWithGlobalFilter<D>;
 }
 
 // Composant de recherche globale
@@ -117,28 +128,15 @@ const EmployeeList = () => {
             setPageSize,
             state,
             setGlobalFilter,
-      } = useTable<Employee>(
+          } = useTable<Employee>(
             {
-                  columns,
-                  data: employees,
-                  initialState: { pageIndex: 0, pageSize: 10 },
+              columns,
+              data: employees,
+              initialState: { pageIndex: 0, pageSize: 10 } as Partial<TableStateWithPagination<Employee>>,
             },
             useGlobalFilter,
             usePagination
-      ) as TableInstance<Employee> & {
-            state: TableStateWithGlobalFilter<Employee>;
-            // page: unknown,
-            // canPreviousPage: unknown,
-            // canNextPage: unknown,
-            // pageOptions: unknown,
-            // pageCount: unknown,
-            // gotoPage: unknown,
-            // nextPage: unknown,
-            // previousPage: unknown,
-            // setPageSize: unknown,
-            // // state,
-            // setGlobalFilter: unknown,
-      };
+          ) as CustomTableInstance<Employee>;
 
       const { globalFilter, pageIndex, pageSize } = state;
 
@@ -326,6 +324,20 @@ const PaginationWrapper = styled.div`
       select {
             padding: 0.25rem;
       }
+
+      @media (max-width: 768px) {
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            margin: 1rem 0;
+            padding: 0 1rem;
+            box-sizing: border-box;
+
+            button,
+            select {
+                  margin: 0.25rem;
+            }
+      }
 `;
 
 const SearchWrapper = styled.div`
@@ -338,69 +350,3 @@ const SearchWrapper = styled.div`
             font-size: 18px;
       }
 `;
-
-// /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { useSelector } from 'react-redux';
-// import { useTable } from 'react-table'
-// import styled from 'styled-components';
-
-// const EmployeeList = () => {
-//       const employees = useSelector((state: any) => state.employees.list);
-
-//       return (
-//             <ListContainer>
-//                   <h2>Employee List</h2>
-//                   <table>
-//                         <thead>
-//                               <tr>
-//                                     <th>First Name</th>
-//                                     <th>Last Name</th>
-//                                     <th>Start Date</th>
-//                                     <th>Department</th>
-//                                     <th>Date of Birth</th>
-//                                     <th>State</th>
-//                               </tr>
-//                         </thead>
-//                         <tbody>
-//                               {employees.map((employee: any, index: number) => (
-//                                     <tr key={index}>
-//                                           <td>{employee.firstName}</td>
-//                                           <td>{employee.lastName}</td>
-//                                           <td>{employee.startDate}</td>
-//                                           <td>{employee.department}</td>
-//                                           <td>{employee.dateOfBirth}</td>
-//                                           <td>{employee.state}</td>
-//                                     </tr>
-//                               ))}
-//                         </tbody>
-//                   </table>
-//                   <a href='/'>Home</a>
-//             </ListContainer>
-//       );
-// };
-
-// export default EmployeeList;
-
-// const ListContainer = styled.div`
-//       padding: 2rem;
-//       background-color: #fff;
-//       border-radius: 8px;
-//       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-//       margin-top: 2rem;
-
-//       table {
-//             width: 100%;
-//             border-collapse: collapse;
-
-//             th,
-//             td {
-//                   padding: 0.75rem;
-//                   text-align: left;
-//                   border-bottom: 1px solid #ddd;
-//             }
-
-//             th {
-//                   background-color: #f4f4f4;
-//             }
-//       }
-// `;
