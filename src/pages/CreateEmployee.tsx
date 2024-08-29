@@ -257,12 +257,48 @@ const CreateEmployee = () => {
                         <Modal
                               isOpen={isModalOpen}
                               onClose={handleCloseModal}
-                              message='Employee Created!'
+                              message='Employee Created !'
                               label=''
-                              confirm='X'
+                              confirm=''
                               close=''
-                              
-                        />
+                              overlayStyle={{
+                                    position: 'fixed',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                              }}
+                              contentStyle={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontWeight: 'bold',
+                                    borderRadius: '10px',
+                                    position: 'relative', // Important for absolute positioning of the close button
+                              }}
+                              bodyStyle={{ marginBottom: '20px' }}
+                        >
+                              <button
+                                    style={{
+                                          position: 'absolute',
+                                          bottom: '10px',
+                                          right: '10px',
+                                          backgroundColor: 'rgb(185 180 180)', // Change the background color as needed
+                                          color: 'black',
+                                          borderRadius: '15%',
+                                          padding: '10px',
+                                          border: 'none',
+                                          cursor: 'pointer',
+                                    }}
+                                    onClick={handleCloseModal}
+                              >
+                                    X
+                              </button>
+                        </Modal>
                   )}
             </FormContainer>
       );

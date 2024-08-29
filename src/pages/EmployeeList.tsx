@@ -162,7 +162,7 @@ const EmployeeList = () => {
                                                 {...headerGroup.getHeaderGroupProps()}
                                           >
                                                 {headerGroup.headers.map(
-                                                      (column) => (
+                                                      (column: any) => (
                                                             <th
                                                                   {...column.getHeaderProps(
                                                                         column.getSortByToggleProps()
