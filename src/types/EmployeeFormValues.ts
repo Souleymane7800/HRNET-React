@@ -1,4 +1,3 @@
-// types.ts
 export interface EmployeeFormValues {
       firstName: string;
       lastName: string;

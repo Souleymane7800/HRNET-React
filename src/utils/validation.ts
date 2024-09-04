@@ -1,5 +1,3 @@
-// validationHelpers.ts
-
 export interface FieldWarnings {
       firstName: boolean;
       lastName: boolean;
@@ -24,7 +22,7 @@ export const validateFields = (
       department: { value: string; label: string } | null
 ): FieldWarnings => {
       return {
-            firstName: !firstName.trim() ,
+            firstName: !firstName.trim(),
             lastName: !lastName.trim(),
             dateOfBirth: !dateOfBirth,
             startDate: !startDate,

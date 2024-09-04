@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faList } from '@fortawesome/free-solid-svg-icons';
 
 const Header: React.FC = () => {
       return (
@@ -12,9 +14,13 @@ const Header: React.FC = () => {
                   </LogoContainer>
                   <Title>HRNet</Title>
                   <LinkContainer>
-                        <StyledLink to='/'>Create a new employee</StyledLink>
+                        <StyledLink to='/'>
+                              <FontAwesomeIcon icon={faPlus} />
+                              {''} Create a new employee
+                        </StyledLink>
                         <StyledLink to='/employee-list'>
-                              View employee list
+                              <FontAwesomeIcon icon={faList} />
+                              {''} View employee list
                         </StyledLink>
                   </LinkContainer>
             </HeaderContainer>
@@ -82,6 +88,9 @@ const StyledLink = styled(Link)`
       @media (max-width: 768px) {
             justify-content: center;
             display: flex;
+            
+            gap:0.3rem;
+            width:100%;
       }
 `;
 

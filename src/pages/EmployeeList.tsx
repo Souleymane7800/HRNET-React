@@ -4,7 +4,7 @@ import {
       useTable,
       usePagination,
       useGlobalFilter,
-      useSortBy, // Importation du hook de tri
+      useSortBy,
       Column,
       TableState,
       TableInstance,
@@ -125,7 +125,7 @@ const EmployeeList = () => {
             canPreviousPage,
             canNextPage,
             pageOptions,
-            pageCount,
+            // pageCount,
             gotoPage,
             nextPage,
             previousPage,
@@ -154,8 +154,12 @@ const EmployeeList = () => {
                   <Title>Employee List</Title>
                   <StyledDiv>
                         <div>
+                              <label htmlFor='select'></label>
                               Show {''}
                               <select
+                                    id='select'
+                                    name='select'
+                                    aria-label='select'
                                     value={pageSize}
                                     onChange={(e) =>
                                           setPageSize(Number(e.target.value))
@@ -277,12 +281,12 @@ const EmployeeList = () => {
                                     ` (filtered from ${totalCount} total entries)`}
                         </span>
                         <div>
-                              <button
+                              {/* <button
                                     onClick={() => gotoPage(0)}
                                     disabled={!canPreviousPage}
                               >
                                     First
-                              </button>
+                              </button> */}
                               <button
                                     onClick={() => previousPage()}
                                     disabled={!canPreviousPage}
@@ -313,12 +317,12 @@ const EmployeeList = () => {
                               >
                                     Next
                               </button>
-                              <button
+                              {/* <button
                                     onClick={() => gotoPage(pageCount - 1)}
                                     disabled={!canNextPage}
                               >
                                     Last
-                              </button>
+                              </button> */}
                         </div>
                   </PaginationWrapper>
             </ListContainer>
@@ -340,6 +344,11 @@ const StyledDiv = styled.div`
       align-items: center;
       width: 100%;
       margin: 1rem 0; // Vous pouvez ajuster la marge selon vos besoins
+
+      @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 1rem;
+      }
 `;
 
 const Title = styled.h2`
@@ -351,6 +360,10 @@ const Title = styled.h2`
 const TableWrapper = styled.div`
       overflow-x: auto;
       margin-bottom: 1rem;
+
+      tbody tr:nth-child(odd) {
+            background-color: #f2f2f2; /* couleur pour les lignes impaires */
+      }
 
       table {
             width: 100%;

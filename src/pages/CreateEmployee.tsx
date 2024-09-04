@@ -66,14 +66,26 @@ const CreateEmployee = () => {
                               const employee: Employee = {
                                     firstName: values.firstName,
                                     lastName: values.lastName,
-                                    dateOfBirth:
-                                          values.dateOfBirth!.toLocaleDateString(
-                                                'en-US'
-                                          ),
-                                    startDate:
-                                          values.startDate!.toLocaleDateString(
-                                                'en-US'
-                                          ),
+                                    dateOfBirth: values.dateOfBirth
+                                          ? values.dateOfBirth
+                                                  .toLocaleDateString('en-GB', {
+                                                        day: '2-digit',
+                                                        month: '2-digit',
+                                                        year: 'numeric',
+                                                  })
+                                                  .replace(/\//g, '-') // Remplacer les / par des -
+                                          : '',
+
+                                    startDate: values.startDate
+                                          ? values.startDate
+                                                  .toLocaleDateString('en-GB', {
+                                                        day: '2-digit',
+                                                        month: '2-digit',
+                                                        year: 'numeric',
+                                                  })
+                                                  .replace(/\//g, '-') // Remplacer les / par des -
+                                          : '',
+
                                     street: values.street,
                                     city: values.city,
                                     state: values.state!.value,
@@ -98,6 +110,8 @@ const CreateEmployee = () => {
                                           name='firstName'
                                           as={Input}
                                           type='text'
+                                          id='firstName'
+                                          aria-label='First Name'
                                     />
                                     <ErrorMessage
                                           name='firstName'
@@ -109,6 +123,8 @@ const CreateEmployee = () => {
                                           name='lastName'
                                           as={Input}
                                           type='text'
+                                          id='lastName'
+                                          aria-label='Last Name'
                                     />
                                     <ErrorMessage
                                           name='lastName'
@@ -162,6 +178,8 @@ const CreateEmployee = () => {
                                                 name='street'
                                                 as={Input}
                                                 type='text'
+                                                aria-label='Street'
+                                                id='street'
                                           />
                                           <ErrorMessage
                                                 name='street'
@@ -173,6 +191,8 @@ const CreateEmployee = () => {
                                                 name='city'
                                                 as={Input}
                                                 type='text'
+                                                aria-label='City'
+                                                id='city'
                                           />
                                           <ErrorMessage
                                                 name='city'
@@ -182,6 +202,7 @@ const CreateEmployee = () => {
                                           <label htmlFor='state'>State:</label>
                                           <StyledSelect
                                                 id='state'
+                                                aria-label='Select state'
                                                 classNamePrefix='Select'
                                                 placeholder='Select state'
                                                 value={values.state}
@@ -205,6 +226,8 @@ const CreateEmployee = () => {
                                                 name='zipCode'
                                                 as={Input}
                                                 type='text'
+                                                aria-label='Zip code'
+                                                id='zipcode'
                                           />
                                           <ErrorMessage
                                                 name='zipCode'
@@ -217,6 +240,7 @@ const CreateEmployee = () => {
                                     </label>
                                     <StyledSelect
                                           id='department'
+                                          aria-label='Department'
                                           classNamePrefix='Select'
                                           placeholder='Select department'
                                           value={values.department}
