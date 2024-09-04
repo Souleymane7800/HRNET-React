@@ -10,3 +10,8 @@ export interface EmployeeFormValues {
       zipCode: string;
       department: { value: string; label: string } | null;
 }
+
+export interface OptionType {
+      label: string;
+      value: string;
+}

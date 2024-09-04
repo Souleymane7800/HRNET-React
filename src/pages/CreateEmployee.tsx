@@ -8,8 +8,9 @@ import { Modal } from 'my-modal-souleymane7800';
 import Select from 'react-select';
 import { Employee } from '../models/Employee';
 import { states } from '../models/State';
-import employeeValidation from '../types/employeeValidation'; // Importation du schéma Yup
+import employeeValidation from '../types/employeeValidation';
 import { addEmployee } from '../features/emplyeesSlice';
+import { OptionType } from '../types/EmployeeFormValues';
 
 const calculateMaxDateOfBirth = () => {
       const today = new Date();
@@ -51,13 +52,13 @@ const CreateEmployee = () => {
                         initialValues={{
                               firstName: '',
                               lastName: '',
-                              dateOfBirth: null,
-                              startDate: null,
+                              dateOfBirth: null as Date | null,
+                              startDate: null as Date | null,
                               street: '',
                               city: '',
-                              state: null,
+                              state: null as OptionType | null,
                               zipCode: '',
-                              department: null,
+                              department: null as OptionType | null,
                         }}
                         validationSchema={employeeValidation}
                         onSubmit={(values, { resetForm }) => {
@@ -119,7 +120,7 @@ const CreateEmployee = () => {
                                     </label>
                                     <StyledDatePicker
                                           id='dateOfBirth'
-                                          placeholderText='dd/mm/yyyy'
+                                          placeholderText='dd/MM/yyyy'
                                           selected={values.dateOfBirth}
                                           onChange={(date) =>
                                                 setFieldValue(
@@ -127,7 +128,7 @@ const CreateEmployee = () => {
                                                       date
                                                 )
                                           }
-                                          dateFormat='dd/mm/yyyy'
+                                          dateFormat='dd/MM/yyyy'
                                           maxDate={calculateMaxDateOfBirth()}
                                     />
                                     <ErrorMessage
@@ -140,12 +141,12 @@ const CreateEmployee = () => {
                                     </StyledLabel>
                                     <StyledDatePicker
                                           id='startDate'
-                                          placeholderText='dd/mm/yyyy'
+                                          placeholderText='dd/MM/yyyy'
                                           selected={values.startDate}
                                           onChange={(date) =>
                                                 setFieldValue('startDate', date)
                                           }
-                                          dateFormat='dd/mm/yyyy'
+                                          dateFormat='dd/MM/yyyy'
                                     />
                                     <ErrorMessage
                                           name='startDate'
@@ -267,7 +268,7 @@ const CreateEmployee = () => {
                                     backgroundColor: 'white',
                                     width: '250px',
                                     height: '100px',
-                                    position: 'relative', // Important for absolute positioning of the close button
+                                    position: 'relative',
                               }}
                               bodyStyle={{ marginBottom: '20px' }}
                         >
@@ -276,7 +277,7 @@ const CreateEmployee = () => {
                                           position: 'absolute',
                                           bottom: '10px',
                                           right: '10px',
-                                          backgroundColor: 'rgb(185 180 180)', // Change the background color as needed
+                                          backgroundColor: 'rgb(185 180 180)',
                                           color: 'black',
                                           borderRadius: '15%',
                                           padding: '10px',
