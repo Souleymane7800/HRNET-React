@@ -50,7 +50,7 @@ interface CustomTableInstance<D extends object = object>
       state: TableStateWithGlobalFilter<D>;
 }
 
-// Composant de recherche globale
+// Global search component
 const GlobalFilter = ({
       filter,
       setFilter,
@@ -125,7 +125,6 @@ const EmployeeList = () => {
             canPreviousPage,
             canNextPage,
             pageOptions,
-            // pageCount,
             gotoPage,
             nextPage,
             previousPage,
@@ -181,9 +180,10 @@ const EmployeeList = () => {
                   <TableWrapper>
                         <table {...getTableProps()}>
                               <thead>
-                                    {headerGroups.map((headerGroup) => (
+                                    {headerGroups.map((headerGroup, index) => (
                                           <tr
                                                 {...headerGroup.getHeaderGroupProps()}
+                                                key={`headerGroup-${index}`}
                                           >
                                                 {headerGroup.headers.map(
                                                       (column: any) => (
@@ -191,6 +191,9 @@ const EmployeeList = () => {
                                                                   {...column.getHeaderProps(
                                                                         column.getSortByToggleProps()
                                                                   )}
+                                                                  key={
+                                                                        column.id
+                                                                  }
                                                                   style={{
                                                                         cursor: 'pointer',
                                                                   }}
@@ -219,6 +222,7 @@ const EmployeeList = () => {
                                                       return (
                                                             <tr
                                                                   {...row.getRowProps()}
+                                                                  key={row.id}
                                                             >
                                                                   {row.cells.map(
                                                                         (
@@ -226,6 +230,11 @@ const EmployeeList = () => {
                                                                         ) => (
                                                                               <td
                                                                                     {...cell.getCellProps()}
+                                                                                    key={
+                                                                                          cell
+                                                                                                .column
+                                                                                                .id
+                                                                                    }
                                                                               >
                                                                                     {cell.render(
                                                                                           'Cell'
@@ -281,12 +290,6 @@ const EmployeeList = () => {
                                     ` (filtered from ${totalCount} total entries)`}
                         </span>
                         <div>
-                              {/* <button
-                                    onClick={() => gotoPage(0)}
-                                    disabled={!canPreviousPage}
-                              >
-                                    First
-                              </button> */}
                               <button
                                     onClick={() => previousPage()}
                                     disabled={!canPreviousPage}
@@ -317,12 +320,6 @@ const EmployeeList = () => {
                               >
                                     Next
                               </button>
-                              {/* <button
-                                    onClick={() => gotoPage(pageCount - 1)}
-                                    disabled={!canNextPage}
-                              >
-                                    Last
-                              </button> */}
                         </div>
                   </PaginationWrapper>
             </ListContainer>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/logo.webp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faList } from '@fortawesome/free-solid-svg-icons';
 
@@ -60,6 +60,7 @@ const LogoContainer = styled.div`
 // Define a styled logo
 const Logo = styled.img`
       height: 80px;
+      width: 80px;
       border-radius: 50%;
 `;
 
@@ -88,12 +89,13 @@ const StyledLink = styled(Link)`
       @media (max-width: 768px) {
             justify-content: center;
             display: flex;
-            
-            gap:0.3rem;
-            width:100%;
+
+            gap: 0.3rem;
+            width: 100%;
       }
 `;
 
+// Define a styled LinkContainer
 const LinkContainer = styled.div`
       display: flex;
       flex-direction: column;

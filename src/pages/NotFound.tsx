@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/logo.webp';
 
 const NotFound: React.FC = () => {
       return (
@@ -47,6 +47,7 @@ const LogoContainer = styled.div`
 
 const Logo = styled.img`
       height: 200px;
+      width: 200px;
       border-radius: 50%;
 `;
 

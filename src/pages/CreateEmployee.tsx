@@ -24,7 +24,7 @@ const calculateMaxDateOfBirth = () => {
 const CreateEmployee = () => {
       const dispatch = useDispatch();
 
-      // Options pour les champs de sélection (Select)
+      // Options for selection fields (Select)
       const departmentOptions = [
             { value: 'Sales', label: 'Sales' },
             { value: 'Marketing', label: 'Marketing' },
@@ -38,7 +38,7 @@ const CreateEmployee = () => {
             label: state.name,
       }));
 
-      // Gestion de l'état du modal
+      // Modal state management
       const [isModalOpen, setIsModalOpen] = React.useState(false);
 
       const handleCloseModal = () => {
@@ -62,7 +62,7 @@ const CreateEmployee = () => {
                         }}
                         validationSchema={employeeValidation}
                         onSubmit={(values, { resetForm }) => {
-                              // Préparer les données pour l'envoi
+                              // Prepare data for sending
                               const employee: Employee = {
                                     firstName: values.firstName,
                                     lastName: values.lastName,
@@ -73,7 +73,7 @@ const CreateEmployee = () => {
                                                         month: '2-digit',
                                                         year: 'numeric',
                                                   })
-                                                  .replace(/\//g, '-') // Remplacer les / par des -
+                                                  .replace(/\//g, '-') // Replace / with -
                                           : '',
 
                                     startDate: values.startDate
@@ -83,7 +83,7 @@ const CreateEmployee = () => {
                                                         month: '2-digit',
                                                         year: 'numeric',
                                                   })
-                                                  .replace(/\//g, '-') // Remplacer les / par des -
+                                                  .replace(/\//g, '-') // Replace / with -
                                           : '',
 
                                     street: values.street,
@@ -93,10 +93,10 @@ const CreateEmployee = () => {
                                     department: values.department!.value,
                               };
 
-                              // Dispatch pour ajouter l'employé
+                              // Dispatch to add the employee
                               dispatch(addEmployee(employee));
 
-                              // Réinitialiser le formulaire
+                              // Reset the form
                               resetForm();
                               setIsModalOpen(true);
                         }}
@@ -136,7 +136,7 @@ const CreateEmployee = () => {
                                     </label>
                                     <StyledDatePicker
                                           id='dateOfBirth'
-                                          placeholderText='dd/MM/yyyy'
+                                          placeholderText='DD/MM/YYYY'
                                           selected={values.dateOfBirth}
                                           onChange={(date) =>
                                                 setFieldValue(
@@ -157,7 +157,7 @@ const CreateEmployee = () => {
                                     </StyledLabel>
                                     <StyledDatePicker
                                           id='startDate'
-                                          placeholderText='dd/MM/yyyy'
+                                          placeholderText='DD/MM/YYYY'
                                           selected={values.startDate}
                                           onChange={(date) =>
                                                 setFieldValue('startDate', date)
@@ -263,7 +263,6 @@ const CreateEmployee = () => {
                               </StyledFormikForm>
                         )}
                   </Formik>
-
                   {isModalOpen && (
                         <Modal
                               isOpen={isModalOpen}
@@ -290,11 +289,11 @@ const CreateEmployee = () => {
                                     fontWeight: 'bold',
                                     borderRadius: '10px',
                                     backgroundColor: 'white',
-                                    width: '250px',
+                                    width: '325px',
                                     height: '100px',
                                     position: 'relative',
                               }}
-                              bodyStyle={{ marginBottom: '20px' }}
+                              bodyStyle={{ marginTop: '10px' }}
                         >
                               <button
                                     style={{
