@@ -202,6 +202,7 @@ const CreateEmployee = () => {
                                           <label htmlFor='state'>State:</label>
                                           <StyledSelect
                                                 id='state'
+                                                name='state'
                                                 aria-label='Select state'
                                                 classNamePrefix='Select'
                                                 placeholder='Select state'
@@ -223,11 +224,11 @@ const CreateEmployee = () => {
                                                 Zip Code:
                                           </label>
                                           <Field
+                                                id='zipcode'
                                                 name='zipCode'
                                                 as={Input}
                                                 type='text'
                                                 aria-label='Zip code'
-                                                id='zipcode'
                                           />
                                           <ErrorMessage
                                                 name='zipCode'
@@ -240,6 +241,7 @@ const CreateEmployee = () => {
                                     </label>
                                     <StyledSelect
                                           id='department'
+                                          name='department'
                                           aria-label='Department'
                                           classNamePrefix='Select'
                                           placeholder='Select department'
